@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  str_mod: 1
+  dex_mod: 1
+  con_mod: 1
+  int_mod: 1
+  wis_mod: 1
+  cha_mod: 1
+  basic_mod: 1
+  weapons_and_tools_mod: 1
+  guns_mod: 1
+  energy_and_magic_mod: 1
+  ultimate_mod: 1
+  defense_mod: 1
+
+two:
+  name: MyString
+  description: MyText
+  str_mod: 1
+  dex_mod: 1
+  con_mod: 1
+  int_mod: 1
+  wis_mod: 1
+  cha_mod: 1
+  basic_mod: 1
+  weapons_and_tools_mod: 1
+  guns_mod: 1
+  energy_and_magic_mod: 1
+  ultimate_mod: 1
+  defense_mod: 1

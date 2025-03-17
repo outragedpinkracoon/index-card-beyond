@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_210707) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_17_212932) do
+  create_table "equipment", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "str_mod"
+    t.integer "dex_mod"
+    t.integer "con_mod"
+    t.integer "int_mod"
+    t.integer "wis_mod"
+    t.integer "cha_mod"
+    t.integer "basic_mod"
+    t.integer "weapons_and_tools_mod"
+    t.integer "guns_mod"
+    t.integer "energy_and_magic_mod"
+    t.integer "ultimate_mod"
+    t.integer "defense_mod"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "life_form_attribute_modifiers", force: :cascade do |t|
     t.integer "life_form_id", null: false
     t.integer "str_mod"
