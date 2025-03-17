@@ -305,6 +305,9 @@ def distribute_points(focus)
     points[stat] += 1
   end
 
+  # Validate using BaseAttributes
+  BaseAttributes.new(**points)
+
   points
 end
 
@@ -370,12 +373,12 @@ end
     story: player_data[:story],
     life_form: life_form,
     player_type: player_type,
-    base_str: attrs[:str],
-    base_dex: attrs[:dex],
-    base_con: attrs[:con],
-    base_int: attrs[:int],
-    base_wis: attrs[:wis],
-    base_cha: attrs[:cha],
+    str: attrs[:str],
+    dex: attrs[:dex],
+    con: attrs[:con],
+    int: attrs[:int],
+    wis: attrs[:wis],
+    cha: attrs[:cha],
     max_health: player_data[:max_health]
   )
 

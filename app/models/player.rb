@@ -5,9 +5,13 @@ class Player < ApplicationRecord
   belongs_to :life_form
 
   validates :name, :world, :story, presence: true
-  validates :base_str, :base_dex, :base_con, :base_int, :base_wis, :base_cha, presence: true
-  validate :base_attributes_sum_equals_six
-  validates :max_health, presence: true, numericality: { greater_than: 0 }
+  validates :str, :dex, :con, :int, :wis, :cha,
+            presence: true,
+            numericality: { only_integer: true }
+  validates :max_health,
+            presence: true,
+            numericality: { greater_than: 0, only_integer: true }
+  validate :validate_base_attributes
 
   after_initialize :setup_managers
 
@@ -85,19 +89,29 @@ class Player < ApplicationRecord
 
   def base_attributes
     {
-      str_mod: base_str,
-      dex_mod: base_dex,
-      con_mod: base_con,
-      int_mod: base_int,
-      wis_mod: base_wis,
-      cha_mod: base_cha
+      str_mod: str,
+      dex_mod: dex,
+      con_mod: con,
+      int_mod: int,
+      wis_mod: wis,
+      cha_mod: cha
     }
   end
 
-  def base_attributes_sum_equals_six
-    sum = [ base_str, base_dex, base_con, base_int, base_wis, base_cha ].compact.sum
-    return if sum == 6
+  def validate_base_attributes
+    return if str.nil? || dex.nil? || con.nil? || int.nil? || wis.nil? || cha.nil?
 
-    errors.add(:base, "Base attributes must sum to 6 (got #{sum})")
+    begin
+      BaseAttributes.new(
+        str: str,
+        dex: dex,
+        con: con,
+        int: int,
+        wis: wis,
+        cha: cha
+      )
+    rescue BaseAttributes::StatsError => e
+      errors.add(:base, e.message)
+    end
   end
 end

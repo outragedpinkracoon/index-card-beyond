@@ -10,12 +10,12 @@ class PlayerTest < ActiveSupport::TestCase
       story: "A test player's story",
       player_type: @player_type,
       life_form: @life_form,
-      base_str: 2,
-      base_dex: 1,
-      base_con: 1,
-      base_int: 1,
-      base_wis: 0,
-      base_cha: 1,
+      str: 2,
+      dex: 1,
+      con: 1,
+      int: 1,
+      wis: 0,
+      cha: 1,
       max_health: 10
     )
   end
@@ -42,16 +42,16 @@ class PlayerTest < ActiveSupport::TestCase
     assert_includes @player.errors[:story], "can't be blank"
   end
 
-  test "requires base attributes" do
-    @player.base_str = nil
+  test "requires attributes" do
+    @player.str = nil
     refute @player.valid?
-    assert_includes @player.errors[:base_str], "can't be blank"
+    assert_includes @player.errors[:str], "can't be blank"
   end
 
-  test "base attributes must sum to 6" do
-    @player.base_str = 3
+  test "attributes must sum to 6" do
+    @player.str = 3
     refute @player.valid?
-    assert_includes @player.errors[:base], "Base attributes must sum to 6 (got 7)"
+    assert_includes @player.errors[:base], "Stats are too high - must add to 6"
   end
 
   test "requires max_health" do
@@ -68,14 +68,23 @@ class PlayerTest < ActiveSupport::TestCase
 
   test "defense calculation" do
     @player.save
-    assert_equal 11, @player.defense # base_con (1) + 10
+    assert_equal 11, @player.defense # con (1) + 10
   end
 
   test "defense with equipment" do
     @player.save
     shield = equipment(:wooden_shield)
     @player.equip(shield)
-    assert_equal 14, @player.defense # base_con (1) + 10 + shield defense (3)
+    assert_equal 14, @player.defense # con (1) + 10 + shield defense (3)
+  end
+
+  test "multiple equipment defense" do
+    @player.save
+    shield = equipment(:wooden_shield)
+    sword = equipment(:iron_sword)
+    @player.equip(shield)
+    @player.equip(sword)
+    assert_equal 15, @player.defense # con (1) + 10 + shield defense (3) + sword defense (1)
   end
 
   test "health management" do

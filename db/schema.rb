@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_214420) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_17_215324) do
   create_table "equipment", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -84,12 +84,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_214420) do
     t.text "description"
     t.string "world"
     t.text "story"
-    t.integer "base_str"
-    t.integer "base_dex"
-    t.integer "base_con"
-    t.integer "base_int"
-    t.integer "base_wis"
-    t.integer "base_cha"
+    t.integer "str"
+    t.integer "dex"
+    t.integer "con"
+    t.integer "int"
+    t.integer "wis"
+    t.integer "cha"
     t.integer "max_health"
     t.integer "player_type_id", null: false
     t.integer "life_form_id", null: false

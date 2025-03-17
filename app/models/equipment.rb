@@ -4,10 +4,18 @@ class Equipment < ApplicationRecord
   validates :defense_mod, presence: true
 
   # Attribute modifiers
-  validates :str_mod, :dex_mod, :con_mod, :int_mod, :wis_mod, :cha_mod, presence: true
+  validates :str_mod, :dex_mod, :con_mod, :int_mod, :wis_mod, :cha_mod,
+            presence: true,
+            numericality: { only_integer: true }
 
   # Effort modifiers
-  validates :basic_mod, :weapons_and_tools_mod, :guns_mod, :energy_and_magic_mod, :ultimate_mod, presence: true
+  validates :basic_mod, :weapons_and_tools_mod, :guns_mod, :energy_and_magic_mod, :ultimate_mod,
+            presence: true,
+            numericality: { only_integer: true }
+
+  def ==(other)
+    name == other.name
+  end
 
   def attribute_mods
     {

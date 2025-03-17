@@ -5,12 +5,12 @@ one:
   description: MyText
   world: MyString
   story: MyText
-  base_str: 1
-  base_dex: 1
-  base_con: 1
-  base_int: 1
-  base_wis: 1
-  base_cha: 1
+  str: 1
+  dex: 1
+  con: 1
+  int: 1
+  wis: 1
+  cha: 1
   max_health: 1
   player_type: one
   life_form: one
@@ -20,12 +20,12 @@ two:
   description: MyText
   world: MyString
   story: MyText
-  base_str: 1
-  base_dex: 1
-  base_con: 1
-  base_int: 1
-  base_wis: 1
-  base_cha: 1
+  str: 1
+  dex: 1
+  con: 1
+  int: 1
+  wis: 1
+  cha: 1
   max_health: 1
   player_type: two
   life_form: two
