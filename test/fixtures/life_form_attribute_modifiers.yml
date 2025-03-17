@@ -17,3 +17,12 @@ two:
   int_mod: 1
   wis_mod: 1
   cha_mod: 1
+
+human_attributes:
+  life_form: human
+  str_mod: 0
+  dex_mod: 0
+  con_mod: 0
+  int_mod: 0
+  wis_mod: 0
+  cha_mod: 0

@@ -9,6 +9,14 @@ class LifeForm < ApplicationRecord
 
   after_create :create_default_modifiers
 
+  def attribute_mods
+    life_form_attribute_modifier.attributes.symbolize_keys.except(:id, :life_form_id, :created_at, :updated_at)
+  end
+
+  def effort_mods
+    life_form_effort_modifier.attributes.symbolize_keys.except(:id, :life_form_id, :created_at, :updated_at)
+  end
+
   private
 
   def create_default_modifiers

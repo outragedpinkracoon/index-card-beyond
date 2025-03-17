@@ -5,3 +5,18 @@ one:
 
 two:
   name: MyString
+
+warrior:
+  name: "Warrior"
+  description: "A mighty warrior skilled in combat"
+  str_mod: 2
+  dex_mod: 1
+  con_mod: 2
+  int_mod: 0
+  wis_mod: 0
+  cha_mod: 1
+  basic_mod: 2
+  weapons_and_tools_mod: 2
+  guns_mod: 0
+  energy_and_magic_mod: 0
+  ultimate_mod: 1

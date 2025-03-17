@@ -31,3 +31,35 @@ two:
   energy_and_magic_mod: 1
   ultimate_mod: 1
   defense_mod: 1
+
+iron_sword:
+  name: "Iron Sword"
+  description: "A reliable iron sword, well-balanced and sharp"
+  str_mod: 1
+  weapons_and_tools_mod: 2
+  defense_mod: 1
+  dex_mod: 0
+  con_mod: 0
+  int_mod: 0
+  wis_mod: 0
+  cha_mod: 0
+  basic_mod: 0
+  guns_mod: 0
+  energy_and_magic_mod: 0
+  ultimate_mod: 0
+
+wooden_shield:
+  name: "Wooden Shield"
+  description: "A sturdy wooden shield reinforced with iron bands"
+  str_mod: 0
+  dex_mod: 0
+  con_mod: 1
+  int_mod: 0
+  wis_mod: 0
+  cha_mod: 0
+  basic_mod: 0
+  weapons_and_tools_mod: 0
+  guns_mod: 0
+  energy_and_magic_mod: 0
+  ultimate_mod: 0
+  defense_mod: 3

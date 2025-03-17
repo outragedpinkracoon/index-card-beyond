@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  world: MyString
+  story: MyText
+  base_str: 1
+  base_dex: 1
+  base_con: 1
+  base_int: 1
+  base_wis: 1
+  base_cha: 1
+  max_health: 1
+  player_type: one
+  life_form: one
+
+two:
+  name: MyString
+  description: MyText
+  world: MyString
+  story: MyText
+  base_str: 1
+  base_dex: 1
+  base_con: 1
+  base_int: 1
+  base_wis: 1
+  base_cha: 1
+  max_health: 1
+  player_type: two
+  life_form: two
