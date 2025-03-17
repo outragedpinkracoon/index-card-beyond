@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  life_form: one
+  basic_mod: 1
+  weapons_and_tools_mod: 1
+  guns_mod: 1
+  energy_and_magic_mod: 1
+  ultimate_mod: 1
+
+two:
+  life_form: two
+  basic_mod: 1
+  weapons_and_tools_mod: 1
+  guns_mod: 1
+  energy_and_magic_mod: 1
+  ultimate_mod: 1

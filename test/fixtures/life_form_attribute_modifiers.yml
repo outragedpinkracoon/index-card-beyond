@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  life_form: one
+  str_mod: 1
+  dex_mod: 1
+  con_mod: 1
+  int_mod: 1
+  wis_mod: 1
+  cha_mod: 1
+
+two:
+  life_form: two
+  str_mod: 1
+  dex_mod: 1
+  con_mod: 1
+  int_mod: 1
+  wis_mod: 1
+  cha_mod: 1
