@@ -116,13 +116,13 @@ class PlayerTest < ActiveSupport::TestCase
     shield = equipment(:wooden_shield)
 
     @player.equip(sword)
-    assert_equal [ sword ], @player.equipment_manager.equipment
+    assert_equal [ sword.id ], @player.equipment.pluck(:id)
 
     @player.equip(shield)
-    assert_equal [ sword, shield ], @player.equipment_manager.equipment
+    assert_equal [ sword.id, shield.id ], @player.equipment.pluck(:id)
 
     @player.unequip(sword)
-    assert_equal [ shield ], @player.equipment_manager.equipment
+    assert_equal [ shield.id ], @player.equipment.pluck(:id)
   end
 
   test "attribute calculations with modifiers" do

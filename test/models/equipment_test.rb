@@ -102,4 +102,68 @@ class EquipmentTest < ActiveSupport::TestCase
     assert_equal(-1, @equipment.str_mod)
     assert_equal(-1, @equipment.dex_mod)
   end
+
+  test "can be equipped by multiple players" do
+    @equipment.save
+    player1 = players(:one)
+    player2 = players(:two)
+
+    player1.equip(@equipment)
+    player2.equip(@equipment)
+
+    assert_equal 2, @equipment.players.count
+    assert_includes @equipment.players, player1
+    assert_includes @equipment.players, player2
+  end
+
+  test "can be unequipped" do
+    @equipment.save
+    player = players(:one)
+    player.equip(@equipment)
+
+    assert_equal 1, @equipment.players.count
+    assert_includes @equipment.players, player
+
+    player.unequip(@equipment)
+    assert_empty @equipment.players
+  end
+
+  test "attribute modifiers are correctly summed" do
+    @equipment.save
+    player = players(:one)
+    sword = equipment(:iron_sword)
+    shield = equipment(:wooden_shield)
+
+    player.equip(sword)
+    player.equip(shield)
+
+    attrs = player.attributes_with_mods
+    assert_equal 4, attrs[:str_mod] # base (3) + sword (1) + shield (0)
+    assert_equal 4, attrs[:con_mod] # base (3) + sword (0) + shield (1)
+  end
+
+  test "effort modifiers are correctly summed" do
+    @equipment.save
+    player = players(:one)
+    sword = equipment(:iron_sword)
+    shield = equipment(:wooden_shield)
+
+    player.equip(sword)
+    player.equip(shield)
+
+    efforts = player.efforts
+    assert_equal 5, efforts[:weapons_and_tools_mod] # base (3) + sword (2) + shield (0)
+  end
+
+  test "defense modifiers are correctly summed" do
+    @equipment.save
+    player = players(:one)
+    sword = equipment(:iron_sword)
+    shield = equipment(:wooden_shield)
+
+    player.equip(sword)
+    player.equip(shield)
+
+    assert_equal 17, player.defense # base (13) + sword (1) + shield (3)
+  end
 end

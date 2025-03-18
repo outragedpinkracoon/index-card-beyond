@@ -1,4 +1,7 @@
 class Equipment < ApplicationRecord
+  has_many :player_equipment, dependent: :destroy
+  has_many :players, through: :player_equipment
+
   validates :name, presence: true
   validates :description, presence: true
   validates :defense_mod, presence: true

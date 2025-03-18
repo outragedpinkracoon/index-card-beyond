@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_17_215324) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_18_130332) do
   create_table "equipment", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -61,6 +61,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_215324) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "player_equipments", force: :cascade do |t|
+    t.integer "player_id", null: false
+    t.integer "equipment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["equipment_id"], name: "index_player_equipments_on_equipment_id"
+    t.index ["player_id"], name: "index_player_equipments_on_player_id"
+  end
+
   create_table "player_types", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -101,6 +110,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_215324) do
 
   add_foreign_key "life_form_attribute_modifiers", "life_forms"
   add_foreign_key "life_form_effort_modifiers", "life_forms"
+  add_foreign_key "player_equipments", "equipment"
+  add_foreign_key "player_equipments", "players"
   add_foreign_key "players", "life_forms"
   add_foreign_key "players", "player_types"
 end

@@ -3,6 +3,8 @@
 class Player < ApplicationRecord
   belongs_to :player_type
   belongs_to :life_form
+  has_many :player_equipment, dependent: :destroy
+  has_many :equipment, through: :player_equipment
 
   validates :name, :world, :story, presence: true
   validates :str, :dex, :con, :int, :wis, :cha,
@@ -15,11 +17,9 @@ class Player < ApplicationRecord
 
   after_initialize :setup_managers
 
-  attr_reader :equipment_manager
-
   def defense
     base_defense = base_attributes[:con_mod] + life_form.attribute_mods[:con_mod] + 10
-    base_defense + equipment_manager.defense_mod
+    base_defense + equipment.sum(:defense_mod)
   end
 
   def take_damage(amount)
@@ -51,11 +51,13 @@ class Player < ApplicationRecord
   end
 
   def equip(item)
-    equipment_manager.equip(item)
+    player_equipment.create(equipment: item)
+    create_stats_calculator
   end
 
   def unequip(item)
-    equipment_manager.unequip(item)
+    player_equipment.find_by(equipment: item)&.destroy
+    create_stats_calculator
   end
 
   def attributes_with_mods
@@ -75,7 +77,6 @@ class Player < ApplicationRecord
 
     @hero_coin = false
     @health = Health.new(max_health: max_health || 10)
-    @equipment_manager = EquipmentManager.new
     create_stats_calculator
   end
 
@@ -83,7 +84,7 @@ class Player < ApplicationRecord
     @stats_calculator = StatsCalculator.new(
       base_values: base_attributes,
       life_form: life_form,
-      equipment_manager: equipment_manager
+      equipment_mods: equipment_mods
     )
   end
 
@@ -95,6 +96,26 @@ class Player < ApplicationRecord
       int_mod: int,
       wis_mod: wis,
       cha_mod: cha
+    }
+  end
+
+  def equipment_mods
+    {
+      attribute_mods: {
+        str_mod: equipment.sum(:str_mod),
+        dex_mod: equipment.sum(:dex_mod),
+        con_mod: equipment.sum(:con_mod),
+        int_mod: equipment.sum(:int_mod),
+        wis_mod: equipment.sum(:wis_mod),
+        cha_mod: equipment.sum(:cha_mod)
+      },
+      effort_mods: {
+        basic_mod: equipment.sum(:basic_mod),
+        weapons_and_tools_mod: equipment.sum(:weapons_and_tools_mod),
+        guns_mod: equipment.sum(:guns_mod),
+        energy_and_magic_mod: equipment.sum(:energy_and_magic_mod),
+        ultimate_mod: equipment.sum(:ultimate_mod)
+      }
     }
   end
 
