@@ -1,0 +1,87 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# This script should be run with: bin/rails runner script/create_character
+
+# Clean up any existing character with the same name
+if existing_player = Player.find_by(name: "Aragorn")
+  puts "\nFound existing character: #{existing_player.name}"
+  puts "Current equipment:"
+  existing_player.equipment.each do |item|
+    puts "- #{item.name}"
+  end
+
+  player_equipment_count = PlayerEquipment.count
+  puts "\nTotal PlayerEquipment records before delete: #{player_equipment_count}"
+  puts "PlayerEquipment records for this character: #{existing_player.player_equipment.count}"
+
+  existing_player.destroy
+
+  new_count = PlayerEquipment.count
+  puts "Total PlayerEquipment records after delete: #{new_count}"
+  puts "Records removed: #{player_equipment_count - new_count}"
+end
+
+# Create a warrior character
+warrior = Player.create!(
+  name: "Aragorn",
+  world: "Middle Earth",
+  story: "A skilled warrior from the North",
+  player_type: PlayerType.find_by!(name: "warrior"),
+  life_form: LifeForm.find_by!(name: "human"),
+  str: 2,
+  dex: 1,
+  con: 1,
+  int: 1,
+  wis: 0,
+  cha: 1,
+  max_health: 10
+)
+
+# Find some equipment
+sword = Equipment.find_by!(name: "Iron Sword")
+shield = Equipment.find_by!(name: "Wooden Shield")
+
+# Equip the items
+warrior.equip(sword)
+warrior.equip(shield)
+
+# Print character details
+puts "\nCharacter Created:"
+puts "------------------"
+puts "Name: #{warrior.name}"
+puts "Type: #{warrior.player_type.name}"
+puts "Life Form: #{warrior.life_form.name}"
+puts "\nBase Attributes:"
+puts "STR: #{warrior.str}"
+puts "DEX: #{warrior.dex}"
+puts "CON: #{warrior.con}"
+puts "INT: #{warrior.int}"
+puts "WIS: #{warrior.wis}"
+puts "CHA: #{warrior.cha}"
+
+puts "\nModified Attributes:"
+attrs = warrior.attributes_with_mods
+puts "STR: #{attrs[:str_mod]}"
+puts "DEX: #{attrs[:dex_mod]}"
+puts "CON: #{attrs[:con_mod]}"
+puts "INT: #{attrs[:int_mod]}"
+puts "WIS: #{attrs[:wis_mod]}"
+puts "CHA: #{attrs[:cha_mod]}"
+
+puts "\nEfforts:"
+efforts = warrior.efforts
+puts "Basic: #{efforts[:basic_mod]}"
+puts "Weapons & Tools: #{efforts[:weapons_and_tools_mod]}"
+puts "Guns: #{efforts[:guns_mod]}"
+puts "Energy & Magic: #{efforts[:energy_and_magic_mod]}"
+puts "Ultimate: #{efforts[:ultimate_mod]}"
+
+puts "\nDefense: #{warrior.defense}"
+puts "Max Health: #{warrior.max_health}"
+puts "Current Health: #{warrior.current_health}"
+
+puts "\nEquipment:"
+warrior.equipment.each do |item|
+  puts "- #{item.name} (Defense: #{item.defense_mod})"
+end
